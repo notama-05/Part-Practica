@@ -1,6 +1,11 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c8pkxfsklknj2"]
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://c8pkxfsklknj2"]
 
 [ext_resource type="Texture2D" uid="uid://bspo6k2c70ycs" path="res://icon.svg" id="1_3om76"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6iq0"]
+friction = 0.0
+rough = true
+bounce = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ieek0"]
 texture = ExtResource("1_3om76")
@@ -223,4 +228,5 @@ texture = ExtResource("1_3om76")
 
 [resource]
 physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_y6iq0")
 sources/0 = SubResource("TileSetAtlasSource_ieek0")

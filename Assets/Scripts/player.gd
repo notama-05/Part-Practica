@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-#variables i constantes varias
+#variables y constantes varias
 const speed = 250.0
 const jump_velocity = -1000.0
 const extra_jump_velocity = -900.0
 const buffer_time = 0.2
-const jump_cut_multiplier = 6.0
+const jump_cut_multiplier = 5.0
 const gravity = 2000
 var jump_buffer_timer = 0.0
 var extrajump = 0
