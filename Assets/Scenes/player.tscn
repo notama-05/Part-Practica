@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://djsrgyge0uauh"]
+[gd_scene load_steps=5 format=3 uid="uid://djsrgyge0uauh"]
 
 [ext_resource type="Texture2D" uid="uid://bspo6k2c70ycs" path="res://icon.svg" id="1_mcdu5"]
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_odjyb"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_k6gy1"]
-radius = 61.0082
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8308"]
+size = Vector2(113, 115)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sulil"]
+size = Vector2(97, 97)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_odjyb")
@@ -13,4 +16,10 @@ script = ExtResource("1_odjyb")
 texture = ExtResource("1_mcdu5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_k6gy1")
+shape = SubResource("RectangleShape2D_o8308")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_sulil")
+debug_color = Color(0.94902, 0.211765, 0.203922, 0.419608)

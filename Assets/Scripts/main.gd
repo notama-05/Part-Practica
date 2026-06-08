@@ -1,11 +1,82 @@
 extends Node2D
 
+@onready var sierra = preload("res://Assets/Scenes/sierra.tscn")
+@onready var spawnpoints = [$Spawn1, $Spawn2, $Spawn3, $Spawn4, $Spawn5]
+var temp_init = 5
+var num_sierras_init = 1
+var total_time = 0.0
+var timer_init = 5.0
+var timer_res = 0.05
+var final_timer
+var count = 0
 
-# Called when the node enters the scene tree for the first time.
+
+func calc_of_num_sierras():
+	var random = randi_range(0,100)
+	if count == 0:
+		create_sierra()
+		count += 1
+	elif count <= 5:
+		if random < 45:
+			create_sierra()
+		elif random < 90:
+			for i in 2:
+				create_sierra()
+		else:
+			for i in 3:
+				create_sierra()
+		count += 1
+	elif count <= 12:
+		if random < 33:
+			create_sierra()
+		elif random < 66:
+			for i in 2:
+				create_sierra()
+		else:
+			for i in 3:
+				create_sierra()
+		count += 1
+	elif count <= 25:
+		if random < 20:
+			create_sierra()
+		elif random < 55:
+			for i in 2:
+				create_sierra()
+		elif random < 95:
+			for i in 3:
+				create_sierra()
+		else:
+			for i in 4:
+				create_sierra()
+		count += 1
+	else:
+		if random < 5:
+			create_sierra()
+		elif random < 30:
+			for i in 2:
+				create_sierra()
+		elif random < 75:
+			for i in 3:
+				create_sierra()
+		else:
+			for i in 4:
+				create_sierra()
+		count += 1
+
+func create_sierra():
+	var new_sierra = sierra.instantiate()
+	get_tree().current_scene.add_child(new_sierra)
+	new_sierra.position = spawnpoints[randi_range(0,4)].position
+	new_sierra.vel_count = count
+	final_timer = timer_init - (timer_res*count)
+
 func _ready():
-	pass # Replace with function body.
+	final_timer = timer_init
+	calc_of_num_sierras()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _physics_process(delta):
+	total_time += delta
+	final_timer -= delta
+	if final_timer <= 0:
+		calc_of_num_sierras()
+	
