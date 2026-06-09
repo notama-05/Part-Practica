@@ -3,8 +3,8 @@ extends CharacterBody2D
 const standard_vel = 300
 var vel_range = 20
 var final_vel
-const min_angle = deg_to_rad(22.5)
-const max_angle = deg_to_rad(157.5) 
+const min_angle = deg_to_rad(30)
+const max_angle = deg_to_rad(150) 
 var final_angle
 var convfact = (2*PI)/360
 var vel_count = 1

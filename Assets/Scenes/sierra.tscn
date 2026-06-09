@@ -6,12 +6,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ka2jf"]
 radius = 59.1354
 
-[node name="Sierra" type="CharacterBody2D"]
+[node name="Sierra" type="CharacterBody2D" groups=["Enemy"]]
+modulate = Color(0.415686, 1, 0, 1)
+scale = Vector2(0.5, 0.5)
 motion_mode = 1
 script = ExtResource("1_6a7au")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0.137255, 1)
 texture = ExtResource("1_os248")
 
 [node name="Sierra" type="Area2D" parent="."]

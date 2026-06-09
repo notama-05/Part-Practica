@@ -1,25 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://djsrgyge0uauh"]
+[gd_scene load_steps=6 format=3 uid="uid://djsrgyge0uauh"]
 
 [ext_resource type="Texture2D" uid="uid://bspo6k2c70ycs" path="res://icon.svg" id="1_mcdu5"]
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_odjyb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o8308"]
-size = Vector2(113, 115)
+size = Vector2(103, 109)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sulil"]
-size = Vector2(97, 97)
+size = Vector2(121, 123)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ebitm"]
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_odjyb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mcdu5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_o8308")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="DeathArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
+position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_sulil")
 debug_color = Color(0.94902, 0.211765, 0.203922, 0.419608)
+
+[node name="BelowArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BelowArea"]
+scale = Vector2(31.56, 122.32)
+shape = SubResource("SegmentShape2D_ebitm")
+debug_color = Color(0.278431, 0.627451, 0.192157, 0.419608)
+
+[connection signal="area_entered" from="DeathArea" to="." method="_on_death_area_area_entered"]
+[connection signal="body_entered" from="DeathArea" to="." method="_on_death_area_body_entered"]
+[connection signal="area_entered" from="BelowArea" to="." method="_on_below_area_area_entered"]

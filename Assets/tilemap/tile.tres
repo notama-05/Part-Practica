@@ -5,7 +5,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6iq0"]
 friction = 0.0
 rough = true
-bounce = 1.0
+bounce = 0.2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ieek0"]
 texture = ExtResource("1_3om76")

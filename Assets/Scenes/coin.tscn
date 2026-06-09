@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://utk08l5r4pat"]
+
+[ext_resource type="Texture2D" uid="uid://bspo6k2c70ycs" path="res://icon.svg" id="1_2ro32"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2imve"]
+bounce = 0.1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ag5me"]
+radius = 65.192
+
+[node name="Coin" type="RigidBody2D" groups=["Coin"]]
+physics_material_override = SubResource("PhysicsMaterial_2imve")
+gravity_scale = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_2ro32")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4.17233e-07, 3.57628e-07)
+scale = Vector2(0.2, 0.2)
+shape = SubResource("CircleShape2D_ag5me")
