@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 #variables y constantes varias
 @onready var coin = preload("res://Assets/Scenes/coin.tscn")
+@onready var main = get_parent()
 const speed = 325.0
 const jump_velocity = -1000.0
 const extra_jump_velocity = -900.0
@@ -12,6 +13,7 @@ var jump_buffer_timer = 0.0
 var extrajump = 0
 var count_sierra = 0
 var sierras_pendientes =[]
+signal muerte_tutorial
 
 func create_coin(pos):
 	var new_coin = coin.instantiate()
@@ -90,16 +92,23 @@ func _physics_process(delta):
 
 
 func _on_death_area_area_entered(area):
-	if area.name == "Sierra":
+	if area.name == "Sierra" and get_tree().current_scene.name != "Tutorial":
 		queue_free()
+	elif area.name == "Sierra":
+		muerte_tutorial.emit()
 
 func _on_below_area_area_entered(area):
 	if not is_on_floor() and area.name == "Sierra":
 		count_sierra += 1 
 		area.get_parent().modulate = Color(1, 0, 0, 1)
-		sierras_pendientes.append(area.get_parent())
+		if area.get_parent() not in sierras_pendientes:
+			sierras_pendientes.append(area.get_parent())
 
 func _on_death_area_body_entered(body):
 	print(body.name)
-	if body.is_in_group("Coin"):
+	if body.is_in_group("Coin") and get_tree().current_scene.name != "Tutorial":
+		body.queue_free()
+		main.actual_time += 1
+		main.coins += 1
+	elif body.is_in_group("Coin"):
 		body.queue_free()

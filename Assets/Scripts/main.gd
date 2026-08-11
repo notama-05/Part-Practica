@@ -2,14 +2,17 @@ extends Node2D
 
 @onready var sierra = preload("res://Assets/Scenes/sierra.tscn")
 @onready var spawnpoints = [$Spawn1, $Spawn2, $Spawn3, $Spawn4, $Spawn5]
+@onready var prog_bar = $ProgressBar 
+@onready var label = $Label
 var temp_init = 5
 var num_sierras_init = 1
-var total_time = 0.0
-var timer_init = 5.0
+var total_time = 60.0
+var timer_init = 4.0
 var timer_res = 0.1
 var final_timer
 var count = 0
-
+var actual_time: float
+var coins = 0
 
 func calc_of_num_sierras():
 	var random = randi_range(0,100)
@@ -72,13 +75,22 @@ func create_sierra():
 
 func _ready():
 	final_timer = timer_init
+	actual_time = total_time
+	prog_bar.min_value = 0
+	prog_bar.max_value = total_time
+	prog_bar.value = total_time
 	calc_of_num_sierras()
 
 func _physics_process(delta):
+	var text_coins = str(coins)
+	label.text = text_coins
 	if Input.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
-	total_time += delta
+	actual_time -= delta
 	final_timer -= delta
+	prog_bar.value = actual_time
+	if actual_time <= 0:
+		get_tree().reload_current_scene()
 	if final_timer <= 0:
 		calc_of_num_sierras()
 	

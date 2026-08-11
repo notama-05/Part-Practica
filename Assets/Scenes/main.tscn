@@ -57,3 +57,18 @@ position = Vector2(381, -139)
 
 [node name="Spawn5" type="Marker2D" parent="."]
 position = Vector2(491, -139)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+show_behind_parent = true
+offset_left = 53.0
+offset_top = 415.0
+offset_right = 553.0
+offset_bottom = 445.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 271.0
+offset_top = 33.0
+offset_right = 311.0
+offset_bottom = 56.0
+scale = Vector2(3, 3)
