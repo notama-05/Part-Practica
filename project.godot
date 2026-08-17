@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Part Pràctica"
-run/main_scene="res://Assets/Scenes/main.tscn"
+run/main_scene="res://Assets/Scenes/init_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.298039, 0.305882, 0.745098, 1)
 config/icon="res://icon.svg"
@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 [display]
 
 window/size/viewport_width=592
-window/size/viewport_height=844
+window/size/viewport_height=864
 
 [input]
 

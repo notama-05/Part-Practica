@@ -2,7 +2,10 @@ extends CharacterBody2D
 
 #variables y constantes varias
 @onready var coin = preload("res://Assets/Scenes/coin.tscn")
+@onready var animation_player = preload("res://Assets/Scenes/animation_player.tscn")
 @onready var main = get_parent()
+@onready var anim = $AnimationPlayer
+@onready var sprite = $Sprite2D
 const speed = 325.0
 const jump_velocity = -1000.0
 const extra_jump_velocity = -900.0
@@ -13,8 +16,19 @@ var jump_buffer_timer = 0.0
 var extrajump = 0
 var count_sierra = 0
 var sierras_pendientes =[]
+var fly_started
+var particle
 signal muerte_tutorial
 
+func animation(cual):
+	var new_animation = animation_player.instantiate()
+	get_parent().add_child(new_animation)
+	new_animation.global_position = global_position
+	if cual == "jump":
+		new_animation.play_jump()
+	elif cual == "landing":
+		new_animation.play_landing()
+			
 func create_coin(pos):
 	var new_coin = coin.instantiate()
 	get_tree().current_scene.add_child(new_coin)
@@ -60,23 +74,15 @@ func _physics_process(delta):
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
 
-	# 
-	if not is_on_floor():
-#ejecución del doble salto
-		if extrajump == 1 and Input.is_action_just_pressed("jump1") and not is_on_floor(): 
-			velocity.y = extra_jump_velocity
-			extrajump = 0 
-#comprovaciones para saber como aplicar la caida, 
-#en el caso de pasar a ser un juego de movil quitaria la opcion de ir hacia abajo para no ocupar tanto espacio en la pantalla
-		if Input.is_action_pressed("down1"): 
-			velocity.y += gravity * delta * 0.5
-		elif velocity.y < 0 and not Input.is_action_pressed("jump1"):
-			velocity.y += gravity * delta * jump_cut_multiplier
-		else:
-			velocity.y += gravity * delta
-	else: #si esta tocando el suelo...
+	if is_on_floor():#si esta tocando el suelo...
+		#particulas de caida
+		if particle:
+			particle = false
+			animation("landing")
+			
 		#recarga del doble salto
 		extrajump = 1
+		fly_started = false
 		# si hay salto en el buffer, ejecutarlo al tocar el suelo
 		if jump_buffer_timer > 0:
 			velocity.y = jump_velocity
@@ -84,18 +90,69 @@ func _physics_process(delta):
 		#salto
 		if Input.is_action_just_pressed("jump1"):
 			velocity.y = jump_velocity
+			#animación del personaje
+			anim.play("jump")
+			#animación de las particulas
+			animation("jump")
+			
+			
+	else: #si no esta tocando el suelo
+		particle = true
+		print(velocity.y)
+		if not fly_started:
+			if velocity.y > -400:
+				fly_started = true
+				anim.play("fly")
+			else:
+				anim.play("aerial")
+
+#ejecución del doble salto
+		if extrajump == 1 and Input.is_action_just_pressed("jump1") and not is_on_floor(): 
+			velocity.y = extra_jump_velocity
+			extrajump = 0 
+			anim.play("jump")
+			fly_started = false
+
+#en el caso de pasar a ser un juego de movil quitaria la opcion de ir hacia abajo para no ocupar tanto espacio en la pantalla
+		if Input.is_action_pressed("down1"): 
+			velocity.y += gravity * delta * 0.5
+		elif velocity.y < 0 and not Input.is_action_pressed("jump1"):
+			velocity.y += gravity * delta * jump_cut_multiplier
+		else:
+			velocity.y += gravity * delta
 
 	# movimiento horizontal
 	var direction = Input.get_axis("left1", "right1")
 	velocity.x = direction * speed
+
+	#animación correr y animación idle
+	if velocity.x == 0 and is_on_floor():
+		anim.play("idle")
+	elif velocity.x != 0 and is_on_floor():
+		anim.play("run")
+		if velocity.x > 0:
+			sprite.flip_h = false
+		else:
+			sprite.flip_h = true
+
 	move_and_slide()
 
 
 func _on_death_area_area_entered(area):
-	if area.name == "Sierra" and get_tree().current_scene.name != "Tutorial":
-		queue_free()
-	elif area.name == "Sierra":
-		muerte_tutorial.emit()
+	print(area.name)
+	if get_tree().current_scene.name != "Tutorial":
+		if area.name == "Sierra":
+			queue_free()
+		elif area.name == "Coin":
+			area.get_parent().queue_free()
+			main.actual_time += 1
+			main.coins += 1
+	else:#cuando esta en el tutorial las mecanicas han de doblarse un poco
+		if area.name == "Sierra":
+			muerte_tutorial.emit()
+		elif area.name == "Coin":
+			area.get_parent().queue_free()
+
 
 func _on_below_area_area_entered(area):
 	if not is_on_floor() and area.name == "Sierra":
@@ -104,11 +161,3 @@ func _on_below_area_area_entered(area):
 		if area.get_parent() not in sierras_pendientes:
 			sierras_pendientes.append(area.get_parent())
 
-func _on_death_area_body_entered(body):
-	print(body.name)
-	if body.is_in_group("Coin") and get_tree().current_scene.name != "Tutorial":
-		body.queue_free()
-		main.actual_time += 1
-		main.coins += 1
-	elif body.is_in_group("Coin"):
-		body.queue_free()

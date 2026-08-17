@@ -28,10 +28,10 @@ func _muerte_tutorial():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("jump1") and paso == 0:
+	if is_instance_valid(player) and Input.is_action_just_pressed("jump1") and paso == 0:
 		paso = 1
 		letrero.text = textos[paso]
-	if Input.is_action_just_pressed("jump1") and not player.is_on_floor() and player.extrajump == 0 and paso == 1:
+	if is_instance_valid(player) and Input.is_action_just_pressed("jump1") and not player.is_on_floor() and player.extrajump == 0 and paso == 1:
 		paso = 2
 		letrero.text = textos[paso]
 		SpriteSierra.visible = true
