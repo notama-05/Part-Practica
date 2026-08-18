@@ -26,8 +26,11 @@ func animation(cual):
 	new_animation.global_position = global_position
 	if cual == "jump":
 		new_animation.play_jump()
+	elif cual == "doublejump":
+		new_animation.play_doublejump()
 	elif cual == "landing":
 		new_animation.play_landing()
+
 			
 func create_coin(pos):
 	var new_coin = coin.instantiate()
@@ -112,6 +115,7 @@ func _physics_process(delta):
 			extrajump = 0 
 			anim.play("jump")
 			fly_started = false
+			animation("doublejump")
 
 #en el caso de pasar a ser un juego de movil quitaria la opcion de ir hacia abajo para no ocupar tanto espacio en la pantalla
 		if Input.is_action_pressed("down1"): 

@@ -6,6 +6,9 @@ func play_jump():
 	global_position.y -= 15
 	me.play("jump_animation")
 
+func play_doublejump():
+	me.play("doublejump_animation")
+
 func play_landing():
 	global_position.y -= 15
 	me.play("landing_animation")

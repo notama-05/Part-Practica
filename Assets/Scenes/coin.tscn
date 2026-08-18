@@ -1,32 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://utk08l5r4pat"]
+[gd_scene load_steps=12 format=3 uid="uid://utk08l5r4pat"]
 
-[ext_resource type="Texture2D" uid="uid://bspo6k2c70ycs" path="res://icon.svg" id="1_2ro32"]
+[ext_resource type="Script" path="res://Assets/Scripts/coin.gd" id="1_4cuvw"]
+[ext_resource type="Texture2D" uid="uid://dsau8xes7yax3" path="res://Assets/Sprites/Coin/coin_rotation.png" id="1_ck8nv"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2imve"]
-bounce = 0.1
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrunv"]
+atlas = ExtResource("1_ck8nv")
+region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ag5me"]
-radius = 60.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnuj4"]
+atlas = ExtResource("1_ck8nv")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc0j2"]
+atlas = ExtResource("1_ck8nv")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55fyq"]
+atlas = ExtResource("1_ck8nv")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78vdw"]
+atlas = ExtResource("1_ck8nv")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vej06"]
+atlas = ExtResource("1_ck8nv")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n4xux"]
+animations = [{
+"frames": [{
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_lrunv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnuj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc0j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55fyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78vdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vej06")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_36wuq"]
+radius = 65.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2oa"]
-radius = 14.0
+radius = 15.0333
 
 [node name="Coin" type="RigidBody2D" groups=["Coin"]]
-physics_material_override = SubResource("PhysicsMaterial_2imve")
 gravity_scale = 2.0
+script = ExtResource("1_4cuvw")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 1, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_2ro32")
+sprite_frames = SubResource("SpriteFrames_n4xux")
+frame_progress = 0.0347362
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4.17233e-07, 3.57628e-07)
 scale = Vector2(0.2, 0.2)
-shape = SubResource("CircleShape2D_ag5me")
+shape = SubResource("CircleShape2D_36wuq")
 
 [node name="Coin" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
 shape = SubResource("CircleShape2D_mg2oa")
 debug_color = Color(0.984314, 0, 0.34902, 0.419608)
+
+[connection signal="area_entered" from="Coin" to="." method="_on_coin_area_entered"]

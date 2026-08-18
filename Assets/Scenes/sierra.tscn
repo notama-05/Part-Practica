@@ -1,23 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://dx8iswdg8s7r4"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/sierra.gd" id="1_6a7au"]
-[ext_resource type="Texture2D" uid="uid://bspo6k2c70ycs" path="res://icon.svg" id="1_os248"]
+[ext_resource type="Texture2D" uid="uid://g45jskiipecv" path="res://Assets/Sprites/Sierra/sierra_spritesLR.png" id="2_nilth"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ka2jf"]
-radius = 59.1354
+radius = 95.0
 
 [node name="Sierra" type="CharacterBody2D" groups=["Enemy"]]
-modulate = Color(0.415686, 1, 0, 1)
 scale = Vector2(0.5, 0.5)
 motion_mode = 1
 script = ExtResource("1_6a7au")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_os248")
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_nilth")
+hframes = 10
 
 [node name="Sierra" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sierra"]
+scale = Vector2(0.8, 0.8)
 shape = SubResource("CircleShape2D_ka2jf")
 debug_color = Color(0.933333, 0.247059, 0.192157, 0.419608)
 
