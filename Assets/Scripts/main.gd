@@ -2,8 +2,8 @@ extends Node2D
 
 @onready var sierra = preload("res://Assets/Scenes/sierra.tscn")
 @onready var spawnpoints = [$Spawn1, $Spawn2, $Spawn3, $Spawn4, $Spawn5]
-@onready var prog_bar = $ProgressBar 
-@onready var label = $Label
+@onready var prog_bar = $Container/ProgressBar
+@onready var label = $Container/Label
 var temp_init = 5
 var num_sierras_init = 1
 var total_time = 60.0
@@ -68,7 +68,7 @@ func calc_of_num_sierras():
 
 func create_sierra():
 	var new_sierra = sierra.instantiate()
-	get_tree().current_scene.add_child(new_sierra)
+	get_tree().current_scene.add_child.call_deferred(new_sierra)
 	new_sierra.position = spawnpoints[randi_range(0,4)].position
 	new_sierra.vel_count = count
 	final_timer = timer_init - (timer_res*count)
@@ -93,4 +93,7 @@ func _physics_process(delta):
 		get_tree().reload_current_scene()
 	if final_timer <= 0:
 		calc_of_num_sierras()
-	
+
+func _on_destruye_sierras_area_entered(area):
+	if area.name == "Sierra":
+		area.queue_free()

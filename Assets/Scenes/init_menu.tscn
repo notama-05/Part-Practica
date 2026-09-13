@@ -1,46 +1,150 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjnw1immjfag"]
+[gd_scene load_steps=9 format=3 uid="uid://bjnw1immjfag"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/init_menu.gd" id="1_b4rit"]
+[ext_resource type="Texture2D" uid="uid://dtopp0py4aohi" path="res://Assets/Sprites/Screen_images/start_imageFV.png" id="2_go1x3"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/minecraft/minecraft_font.ttf" id="3_m16u6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mpvvg"]
+font = ExtResource("3_m16u6")
+font_size = 51
+font_color = Color(0, 0, 0, 1)
+outline_size = 25
+outline_color = Color(1, 0.52549, 0, 1)
+
+[sub_resource type="Theme" id="Theme_gmvgp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_li8w2"]
+font = ExtResource("3_m16u6")
+font_size = 51
+font_color = Color(0, 0, 0, 1)
+outline_size = 25
+outline_color = Color(1, 0.52549, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_va6lu"]
+font = ExtResource("3_m16u6")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ms2bf"]
+size = Vector2(1410, 20)
 
 [node name="Init_menu" type="Node2D"]
 script = ExtResource("1_b4rit")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 235.0
-offset_top = 87.0
-offset_right = 348.0
-offset_bottom = 110.0
-text = "Pluja de perill"
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 592.0
+offset_bottom = 864.0
+texture = ExtResource("2_go1x3")
 
-[node name="Play" type="Button" parent="."]
-offset_left = 272.0
-offset_top = 341.0
-offset_right = 313.0
-offset_bottom = 372.0
+[node name="Container" type="VBoxContainer" parent="."]
+offset_right = 560.0
+offset_bottom = 848.0
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="Label2" type="Label" parent="Container"]
+light_mask = 8
+visibility_layer = 8
+z_index = 4
+layout_mode = 2
+text = "Pluja de Perill !"
+label_settings = SubResource("LabelSettings_mpvvg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="Container"]
+light_mask = 8
+visibility_layer = 8
+z_index = 4
+custom_minimum_size = Vector2(175, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_gmvgp")
+theme_override_fonts/font = ExtResource("3_m16u6")
 text = "Play"
 
-[node name="Personalization" type="Button" parent="."]
-offset_left = 231.0
-offset_top = 444.0
-offset_right = 359.0
-offset_bottom = 475.0
+[node name="Personalization" type="Button" parent="Container"]
+light_mask = 8
+visibility_layer = 8
+z_index = 4
+custom_minimum_size = Vector2(175, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_m16u6")
 text = "Personalization"
 
-[node name="Tutorial" type="Button" parent="."]
-offset_left = 262.0
-offset_top = 557.0
-offset_right = 331.0
-offset_bottom = 588.0
+[node name="Tutorial" type="Button" parent="Container"]
+light_mask = 8
+visibility_layer = 8
+z_index = 4
+custom_minimum_size = Vector2(175, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_m16u6")
 text = "Tutorial"
 
-[node name="Configuration" type="Button" parent="."]
-offset_left = 242.0
-offset_top = 674.0
-offset_right = 357.0
-offset_bottom = 705.0
+[node name="Configuration" type="Button" parent="Container"]
+light_mask = 8
+visibility_layer = 8
+z_index = 4
+custom_minimum_size = Vector2(175, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_m16u6")
 text = "Configuration"
 
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Personalization" to="." method="_on_personalization_pressed"]
-[connection signal="pressed" from="Tutorial" to="." method="_on_tutorial_pressed"]
-[connection signal="pressed" from="Configuration" to="." method="_on_configuration_pressed"]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(560, 792)
+offset_right = 592.0
+offset_bottom = 792.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+light_mask = 8
+visibility_layer = 8
+z_index = 4
+layout_mode = 2
+text = "Pluja de Perill !"
+label_settings = SubResource("LabelSettings_li8w2")
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Toca a qualsevol lloc de la pantalla"
+label_settings = SubResource("LabelSettings_va6lu")
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(319, 1005)
+scale = Vector2(6, 1)
+shape = SubResource("RectangleShape2D_ms2bf")
+
+[node name="Marker2D3" type="Marker2D" parent="."]
+position = Vector2(14, -82)
+
+[node name="Marker2D5" type="Marker2D" parent="."]
+position = Vector2(418, -82)
+
+[node name="Marker2D6" type="Marker2D" parent="."]
+position = Vector2(168, -82)
+
+[node name="Marker2D7" type="Marker2D" parent="."]
+position = Vector2(338, -82)
+
+[node name="Marker2D9" type="Marker2D" parent="."]
+position = Vector2(564, -80)
+
+[node name="Marker2D11" type="Marker2D" parent="."]
+position = Vector2(702, -78)
+
+[node name="Marker2D12" type="Marker2D" parent="."]
+position = Vector2(-118, -84)
+
+[connection signal="pressed" from="Container/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Container/Personalization" to="." method="_on_personalization_pressed"]
+[connection signal="pressed" from="Container/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="Container/Configuration" to="." method="_on_configuration_pressed"]

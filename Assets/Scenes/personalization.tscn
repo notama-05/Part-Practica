@@ -1,55 +1,80 @@
-[gd_scene load_steps=4 format=3 uid="uid://co2vin8wrsq5o"]
+[gd_scene load_steps=8 format=3 uid="uid://co2vin8wrsq5o"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Personalization.gd" id="1_xywt4"]
 [ext_resource type="Texture2D" uid="uid://g45jskiipecv" path="res://Assets/Sprites/Sierra/sierra_spritesLR.png" id="2_1ois0"]
-[ext_resource type="Texture2D" uid="uid://bva0im4l2morb" path="res://Assets/Sprites/UI/button_side_texture.png" id="3_t5eu8"]
+[ext_resource type="LabelSettings" uid="uid://d3usq73j3a0lh" path="res://Assets/font.tres" id="2_2jcmb"]
+[ext_resource type="Texture2D" uid="uid://dtopp0py4aohi" path="res://Assets/Sprites/Screen_images/start_imageFV.png" id="2_r8mhy"]
+[ext_resource type="Texture2D" uid="uid://c76j7toqkxspw" path="res://Assets/Sprites/UI/selecting_arrow00.png" id="5_6kp8c"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/minecraft/minecraft_font.ttf" id="5_b4afa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ngkqm"]
+font = ExtResource("5_b4afa")
+font_size = 20
+outline_size = 5
+outline_color = Color(1, 0.627451, 0, 1)
 
 [node name="Personalization" type="Node2D"]
 script = ExtResource("1_xywt4")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 237.0
-offset_top = 114.0
-offset_right = 357.0
-offset_bottom = 137.0
-text = "Personalization"
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 592.0
+offset_bottom = 864.0
+texture = ExtResource("2_r8mhy")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(302, 347)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(560, 848)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 50
+
+[node name="VSplitContainer2" type="VSplitContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Personalization"
+label_settings = ExtResource("2_2jcmb")
+horizontal_alignment = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(560, 70)
+layout_mode = 2
+theme_override_constants/separation = 260
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
+position = Vector2(280, 50)
 texture = ExtResource("2_1ois0")
 hframes = 10
 
-[node name="Past" type="TextureButton" parent="."]
-offset_left = 127.0
-offset_top = 499.0
-offset_right = 227.0
-offset_bottom = 599.0
-scale = Vector2(0.520001, 0.520001)
-texture_normal = ExtResource("3_t5eu8")
+[node name="Past" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_6kp8c")
 
-[node name="Next" type="TextureButton" parent="."]
-offset_left = 425.0
-offset_top = 497.0
-offset_right = 525.0
-offset_bottom = 597.0
-scale = Vector2(0.520001, 0.520001)
-texture_normal = ExtResource("3_t5eu8")
+[node name="Next" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_6kp8c")
 flip_h = true
 
-[node name="Skin_name" type="Label" parent="."]
-offset_left = 240.0
-offset_top = 498.0
-offset_right = 416.0
-offset_bottom = 563.0
-autowrap_mode = 3
+[node name="Skin_name" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "hola"
+label_settings = SubResource("LabelSettings_ngkqm")
+horizontal_alignment = 1
 
-[node name="Accept" type="Button" parent="."]
-offset_left = 274.0
-offset_top = 647.0
-offset_right = 334.0
-offset_bottom = 678.0
+[node name="Accept" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(175, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_b4afa")
 text = "Accept"
 
-[connection signal="pressed" from="Past" to="." method="_on_past_pressed"]
-[connection signal="pressed" from="Next" to="." method="_on_next_pressed"]
-[connection signal="pressed" from="Accept" to="." method="_on_accept_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Past" to="." method="_on_past_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="VBoxContainer/Accept" to="." method="_on_accept_pressed"]

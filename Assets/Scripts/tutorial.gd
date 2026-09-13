@@ -7,15 +7,17 @@ extends Node2D
 @onready var boton_continuar = $NextButton
 @onready var sierra = preload("res://Assets/Scenes/sierra.tscn")
 var paso = 0
+var cuenta = 0
 
 var textos = ["pulsa espacio para saltar", 
 "salta en el aire para ejecutar un doble salto", 
-"esto es una sierra ahora cuando baje salta por encima de ella", 
+"si te cae un objeto como este es un peligro ahora cuando baje salta por encima de el", 
 "como has visto la sierra suelta monedas como esta, eso te ganará tiempo para sobrevivir, ahora es momento de saltar a la acción" 
 ]
 
 func _ready():
 	SpriteSierra.visible = false
+	SpriteSierra.frame = Global.sierra_skin
 	SpriteMoneda.visible = false
 	letrero.text = textos[0]
 	boton_continuar.visible = false
@@ -42,6 +44,7 @@ func _process(delta):
 		paso = 3
 		letrero.text = textos[paso]
 		SpriteMoneda.visible = true
+		SpriteMoneda.play("default")
 		boton_continuar.visible = true
 	if Input.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
@@ -57,3 +60,14 @@ func _on_skip_button_pressed():
 
 func _on_next_button_pressed():
 	get_tree().change_scene_to_file("res://Assets/Scenes/main.tscn")
+
+func _on_destruye_sierras_area_entered(area):
+	if area.name == "Sierra":
+		letrero.text = "no te preocupes, ahora baja otra para que la saltes"
+		cuenta += 1
+		if cuenta == 3:
+			letrero.text = "oye no es por nada pero la idea es que saltes el objeto"
+		if cuenta >= 4:
+			letrero.text = "PUEDES SALTAR POR ENCIMA DEL OBJETO DE UNA VEZ!?!?!"
+		create_sierra()
+		area.queue_free()

@@ -2,6 +2,8 @@ extends Node
 
 var record: int = 0
 var sierra_skin: int = 0
+var actual_score
+var paso = 1
 
 var save_path = "user://Save.txt"
 

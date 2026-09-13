@@ -1,14 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://bss06dhudo8jb"]
+[gd_scene load_steps=9 format=3 uid="uid://bss06dhudo8jb"]
 
 [ext_resource type="PackedScene" uid="uid://djsrgyge0uauh" path="res://Assets/Scenes/player.tscn" id="1_8eetq"]
 [ext_resource type="Script" path="res://Assets/Scripts/main.gd" id="1_gokt3"]
 [ext_resource type="TileSet" uid="uid://c8pkxfsklknj2" path="res://Assets/tilemap/tile.tres" id="2_53muj"]
+[ext_resource type="Texture2D" uid="uid://6n11kjb08clp" path="res://Assets/Sprites/Screen_images/main_image.png" id="2_hbllw"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/minecraft/minecraft_font.ttf" id="4_c1aud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72l1i"]
 size = Vector2(28, 1190)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gorup"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sbu3i"]
+font = ExtResource("4_c1aud")
+font_size = 171
+outline_size = 30
+outline_color = Color(1, 0.533333, 0, 1)
+
 [node name="Main" type="Node2D"]
+position = Vector2(-16, 0)
 script = ExtResource("1_gokt3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_hbllw")
 
 [node name="Player" parent="." instance=ExtResource("1_8eetq")]
 position = Vector2(172, 780)
@@ -44,31 +60,47 @@ shape = SubResource("RectangleShape2D_72l1i")
 debug_color = Color(0.980392, 0.109804, 0.239216, 0.419608)
 
 [node name="Spawn1" type="Marker2D" parent="."]
-position = Vector2(83, -139)
+position = Vector2(87, -60)
 
 [node name="Spawn2" type="Marker2D" parent="."]
-position = Vector2(185, -140)
+position = Vector2(189, -61)
 
 [node name="Spawn3" type="Marker2D" parent="."]
-position = Vector2(286, -139)
+position = Vector2(290, -60)
 
 [node name="Spawn4" type="Marker2D" parent="."]
-position = Vector2(381, -139)
+position = Vector2(385, -60)
 
 [node name="Spawn5" type="Marker2D" parent="."]
-position = Vector2(491, -139)
+position = Vector2(495, -60)
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="DestruyeSierras" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestruyeSierras"]
+position = Vector2(301, -133)
+scale = Vector2(37.72, 1)
+shape = SubResource("RectangleShape2D_gorup")
+
+[node name="Container" type="VBoxContainer" parent="."]
+offset_top = 144.0
+offset_right = 592.0
+offset_bottom = 489.0
+theme_override_constants/separation = 105
+alignment = 1
+
+[node name="Label" type="Label" parent="Container"]
+modulate = Color(1, 1, 1, 0.905882)
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_sbu3i")
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Container"]
+modulate = Color(0.105882, 0.105882, 0.105882, 1)
 show_behind_parent = true
-offset_left = 53.0
-offset_top = 415.0
-offset_right = 553.0
-offset_bottom = 445.0
+custom_minimum_size = Vector2(450, 25)
+layout_mode = 2
+size_flags_horizontal = 4
 show_percentage = false
 
-[node name="Label" type="Label" parent="."]
-offset_left = 271.0
-offset_top = 33.0
-offset_right = 311.0
-offset_bottom = 56.0
-scale = Vector2(3, 3)
+[connection signal="area_entered" from="DestruyeSierras" to="." method="_on_destruye_sierras_area_entered"]

@@ -57,7 +57,7 @@ animations = [{
 radius = 65.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2oa"]
-radius = 15.0333
+radius = 16.0
 
 [node name="Coin" type="RigidBody2D" groups=["Coin"]]
 gravity_scale = 2.0

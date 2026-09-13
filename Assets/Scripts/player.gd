@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var main = get_parent()
 @onready var anim = $AnimationPlayer
 @onready var sprite = $Sprite2D
-const speed = 325.0
+const speed = 335.0
 const jump_velocity = -1000.0
 const extra_jump_velocity = -900.0
 const buffer_time = 0.2
@@ -17,7 +17,7 @@ var extrajump = 0
 var count_sierra = 0
 var sierras_pendientes =[]
 var fly_started
-var particle
+var landing_particle
 signal muerte_tutorial
 
 func animation(cual):
@@ -30,6 +30,10 @@ func animation(cual):
 		new_animation.play_doublejump()
 	elif cual == "landing":
 		new_animation.play_landing()
+	elif cual == "startrunL":
+		new_animation.play_startrun("l")
+	elif cual == "startrunD":
+		new_animation.play_startrun("d")
 
 			
 func create_coin(pos):
@@ -79,8 +83,8 @@ func _physics_process(delta):
 
 	if is_on_floor():#si esta tocando el suelo...
 		#particulas de caida
-		if particle:
-			particle = false
+		if landing_particle:
+			landing_particle = false
 			animation("landing")
 			
 		#recarga del doble salto
@@ -100,8 +104,7 @@ func _physics_process(delta):
 			
 			
 	else: #si no esta tocando el suelo
-		particle = true
-		print(velocity.y)
+		landing_particle = true
 		if not fly_started:
 			if velocity.y > -400:
 				fly_started = true
@@ -128,7 +131,11 @@ func _physics_process(delta):
 	# movimiento horizontal
 	var direction = Input.get_axis("left1", "right1")
 	velocity.x = direction * speed
-
+	
+	if Input.is_action_just_pressed("left1") and is_on_floor():
+		animation("startrunL")
+	if Input.is_action_just_pressed("right1") and is_on_floor():
+		animation("startrunD")
 	#animación correr y animación idle
 	if velocity.x == 0 and is_on_floor():
 		anim.play("idle")
@@ -146,7 +153,8 @@ func _on_death_area_area_entered(area):
 	print(area.name)
 	if get_tree().current_scene.name != "Tutorial":
 		if area.name == "Sierra":
-			queue_free()
+			Global.actual_score = main.coins
+			get_tree().change_scene_to_file("res://Assets/Scenes/game_over.tscn")
 		elif area.name == "Coin":
 			area.get_parent().queue_free()
 			main.actual_time += 1

@@ -9,7 +9,7 @@
 size = Vector2(40, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wh7lx"]
-size = Vector2(46, 106)
+size = Vector2(46, 107)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ebitm"]
 
@@ -282,7 +282,7 @@ shape = SubResource("RectangleShape2D_o8308")
 [node name="DeathArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
-position = Vector2(0, 6)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_wh7lx")
 debug_color = Color(0.94902, 0.211765, 0.203922, 0.419608)
 

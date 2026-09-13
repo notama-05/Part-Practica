@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var sierra_sprite = $Sprite2D
-@onready var skin_name = $Skin_name
+@onready var sierra_sprite = $VBoxContainer/HBoxContainer/Sprite2D
+@onready var skin_name = $VBoxContainer/Skin_name
 var sierra_skin
 var skin_names = ["Escut Anglès",
 "Escut Medieval", "Escut Català", "Donut", "Pizza", 
@@ -30,4 +30,5 @@ func _on_next_pressed():
 func _on_accept_pressed():
 	Global.sierra_skin = sierra_skin
 	Global.save_data()
+	Global.paso = 2
 	get_tree().change_scene_to_file("res://Assets/Scenes/init_menu.tscn")
