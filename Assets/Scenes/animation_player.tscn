@@ -268,9 +268,7 @@ animations = [{
 
 [node name="animation_player" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_e3itu")
-animation = &"sierra_animation"
-frame = 6
-frame_progress = 1.0
+animation = &"startrun_animation"
 script = ExtResource("2_p58h3")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

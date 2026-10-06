@@ -1,13 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjnw1immjfag"]
+[gd_scene load_steps=10 format=3 uid="uid://bjnw1immjfag"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/init_menu.gd" id="1_b4rit"]
 [ext_resource type="Texture2D" uid="uid://dtopp0py4aohi" path="res://Assets/Sprites/Screen_images/start_imageFV.png" id="2_go1x3"]
-[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/minecraft/minecraft_font.ttf" id="3_m16u6"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/Minecraft/minecraft_font.ttf" id="3_m16u6"]
+[ext_resource type="AudioStream" uid="uid://ssrr6v71t5td" path="res://Assets/Music/Themes/Menu_theme.wav" id="4_5jkyy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mpvvg"]
 font = ExtResource("3_m16u6")
 font_size = 51
-font_color = Color(0, 0, 0, 1)
 outline_size = 25
 outline_color = Color(1, 0.52549, 0, 1)
 
@@ -16,7 +16,6 @@ outline_color = Color(1, 0.52549, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_li8w2"]
 font = ExtResource("3_m16u6")
 font_size = 51
-font_color = Color(0, 0, 0, 1)
 outline_size = 25
 outline_color = Color(1, 0.52549, 0, 1)
 
@@ -143,6 +142,11 @@ position = Vector2(702, -78)
 
 [node name="Marker2D12" type="Marker2D" parent="."]
 position = Vector2(-118, -84)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_5jkyy")
+volume_db = 3.0
+autoplay = true
 
 [connection signal="pressed" from="Container/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Container/Personalization" to="." method="_on_personalization_pressed"]

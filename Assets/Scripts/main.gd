@@ -4,6 +4,8 @@ extends Node2D
 @onready var spawnpoints = [$Spawn1, $Spawn2, $Spawn3, $Spawn4, $Spawn5]
 @onready var prog_bar = $Container/ProgressBar
 @onready var label = $Container/Label
+@onready var song = $SongPlayer
+
 var temp_init = 5
 var num_sierras_init = 1
 var total_time = 60.0
@@ -14,57 +16,32 @@ var count = 0
 var actual_time: float
 var coins = 0
 
+
 func calc_of_num_sierras():
-	var random = randi_range(0,100)
 	if count == 0:
 		create_sierra()
 		count += 1
-	elif count <= 5:
-		if random < 30:
-			create_sierra()
-		elif random < 90:
-			for i in 2:
-				create_sierra()
-		else:
-			for i in 3:
-				create_sierra()
-		count += 1
+		return
+
+	var random = randi_range(0, 99)
+	var probabilidades: Array
+
+	if count <= 5:
+		probabilidades = [[30, 1], [90, 2], [100, 3]]
 	elif count <= 12:
-		if random < 20:
-			create_sierra()
-		elif random < 70:
-			for i in 2:
-				create_sierra()
-		else:
-			for i in 3:
-				create_sierra()
-		count += 1
+		probabilidades = [[20, 1], [70, 2], [100, 3]]
 	elif count <= 25:
-		if random < 10:
-			create_sierra()
-		elif random < 35:
-			for i in 2:
-				create_sierra()
-		elif random < 75:
-			for i in 3:
-				create_sierra()
-		else:
-			for i in 4:
-				create_sierra()
-		count += 1
+		probabilidades = [[10, 1], [35, 2], [75, 3], [100, 4]]
 	else:
-		if random < 5:
-			create_sierra()
-		elif random < 30:
-			for i in 2:
+		probabilidades = [[5, 1], [30, 2], [55, 3], [100, 4]]
+
+	for rango in probabilidades:
+		if random < rango[0]:
+			for i in rango[1]:
 				create_sierra()
-		elif random < 55:
-			for i in 3:
-				create_sierra()
-		else:
-			for i in 4:
-				create_sierra()
-		count += 1
+			break
+
+	count += 1
 
 func create_sierra():
 	var new_sierra = sierra.instantiate()
@@ -74,6 +51,10 @@ func create_sierra():
 	final_timer = timer_init - (timer_res*count)
 
 func _ready():
+	if Global.MusicVolume != 0:
+		song.volume_db = lerp(-2.0, 23.0, (Global.MusicVolume/100.0))
+	else:
+		song.stop()
 	final_timer = timer_init
 	actual_time = total_time
 	prog_bar.min_value = 0

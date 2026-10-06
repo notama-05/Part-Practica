@@ -2,10 +2,13 @@ extends Node
 
 var record: int = 0
 var sierra_skin: int = 0
-var actual_score
-var paso = 1
+var actual_score: int = 0
+var paso: int = 1
 
-var save_path = "user://Save.txt"
+var MusicVolume: int = 80.0
+var EffectsVolume: int = 80.0
+
+var save_path := "user://Save.txt"
 
 
 func _ready():
@@ -18,6 +21,8 @@ func save_data():
 	if archivo:
 		archivo.store_line(str(record))
 		archivo.store_line(str(sierra_skin))
+		archivo.store_line(str(MusicVolume))
+		archivo.store_line(str(EffectsVolume))
 	else:
 		print("No se ha podido abrir el archivo")
 
@@ -29,10 +34,19 @@ func cargar_datos():
 	var archivo = FileAccess.open(save_path, FileAccess.READ)
 
 	if archivo:
-		var lineas = archivo.get_as_text().split("\n")
+		var record_line = archivo.get_line()
+		var skin_line = archivo.get_line()
+		var music_line = archivo.get_line()
+		var effects_line = archivo.get_line()
 
-		if lineas.size() >= 1 and lineas[0] != "":
-			record = int(lineas[0])
+		if record_line != "":
+			record = int(record_line)
 
-		if lineas.size() >= 2 and lineas[1] != "":
-			sierra_skin = int(lineas[1])
+		if skin_line != "":
+			sierra_skin = int(skin_line)
+
+		if music_line != "":
+			MusicVolume = float(music_line)
+
+		if effects_line != "":
+			EffectsVolume = float(effects_line)

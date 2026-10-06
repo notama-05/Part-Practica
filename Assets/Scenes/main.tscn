@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bss06dhudo8jb"]
+[gd_scene load_steps=10 format=3 uid="uid://bss06dhudo8jb"]
 
 [ext_resource type="PackedScene" uid="uid://djsrgyge0uauh" path="res://Assets/Scenes/player.tscn" id="1_8eetq"]
 [ext_resource type="Script" path="res://Assets/Scripts/main.gd" id="1_gokt3"]
 [ext_resource type="TileSet" uid="uid://c8pkxfsklknj2" path="res://Assets/tilemap/tile.tres" id="2_53muj"]
 [ext_resource type="Texture2D" uid="uid://6n11kjb08clp" path="res://Assets/Sprites/Screen_images/main_image.png" id="2_hbllw"]
-[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/minecraft/minecraft_font.ttf" id="4_c1aud"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/Minecraft/minecraft_font.ttf" id="4_c1aud"]
+[ext_resource type="AudioStream" uid="uid://doam2xpxcgsxy" path="res://Assets/Music/Themes/Theme_song_chiller.wav" id="6_o3uvv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72l1i"]
 size = Vector2(28, 1190)
@@ -28,7 +29,7 @@ texture = ExtResource("2_hbllw")
 
 [node name="Player" parent="." instance=ExtResource("1_8eetq")]
 position = Vector2(172, 780)
-scale = Vector2(0.9, 0.9)
+scale = Vector2(0.85, 0.85)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_53muj")
@@ -102,5 +103,10 @@ custom_minimum_size = Vector2(450, 25)
 layout_mode = 2
 size_flags_horizontal = 4
 show_percentage = false
+
+[node name="SongPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_o3uvv")
+volume_db = 15.0
+autoplay = true
 
 [connection signal="area_entered" from="DestruyeSierras" to="." method="_on_destruye_sierras_area_entered"]

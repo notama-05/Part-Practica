@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://co2vin8wrsq5o"]
+[gd_scene load_steps=9 format=3 uid="uid://co2vin8wrsq5o"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Personalization.gd" id="1_xywt4"]
 [ext_resource type="Texture2D" uid="uid://g45jskiipecv" path="res://Assets/Sprites/Sierra/sierra_spritesLR.png" id="2_1ois0"]
 [ext_resource type="LabelSettings" uid="uid://d3usq73j3a0lh" path="res://Assets/font.tres" id="2_2jcmb"]
 [ext_resource type="Texture2D" uid="uid://dtopp0py4aohi" path="res://Assets/Sprites/Screen_images/start_imageFV.png" id="2_r8mhy"]
 [ext_resource type="Texture2D" uid="uid://c76j7toqkxspw" path="res://Assets/Sprites/UI/selecting_arrow00.png" id="5_6kp8c"]
-[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/minecraft/minecraft_font.ttf" id="5_b4afa"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/Minecraft/minecraft_font.ttf" id="5_b4afa"]
+[ext_resource type="AudioStream" uid="uid://ssrr6v71t5td" path="res://Assets/Music/Themes/Menu_theme.wav" id="7_o2pn6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ngkqm"]
 font = ExtResource("5_b4afa")
@@ -74,6 +75,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_b4afa")
 text = "Accept"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_o2pn6")
+volume_db = 3.0
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Past" to="." method="_on_past_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Next" to="." method="_on_next_pressed"]

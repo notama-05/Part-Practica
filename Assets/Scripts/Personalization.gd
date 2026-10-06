@@ -2,12 +2,18 @@ extends Node2D
 
 @onready var sierra_sprite = $VBoxContainer/HBoxContainer/Sprite2D
 @onready var skin_name = $VBoxContainer/Skin_name
+@onready var song = $AudioStreamPlayer2D
+
 var sierra_skin
-var skin_names = ["Escut Anglès",
-"Escut Medieval", "Escut Català", "Donut", "Pizza", 
-"Taronja", "Pilota de Fútbol", "Serra Puntiaguda", "Serra Rodoneta", "Yen"]
+var skin_names = ["English shield",
+"Medieval Shield", "Catalan Shield", "Donut", "Pizza", 
+"Orange", "Football", "Pointy sawblade", "Rounded sawblade", "Yen"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Global.MusicVolume != 0:
+		song.volume_db = lerp(-15.0, 10.0, (Global.MusicVolume/100.0))
+	else:
+		song.stop()
 	sierra_skin = Global.sierra_skin
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

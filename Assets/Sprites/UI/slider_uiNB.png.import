@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bva0im4l2morb"
-path="res://.godot/imported/button_side_texture.png-e139f5d13a9e9a2a2b396ef04e4a78ad.ctex"
+uid="uid://ct54ax70n1io6"
+path="res://.godot/imported/slider_uiNB.png-0eff42f6d376f39ad19cbf6980be52d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/button_side_texture.png"
-dest_files=["res://.godot/imported/button_side_texture.png-e139f5d13a9e9a2a2b396ef04e4a78ad.ctex"]
+source_file="res://Assets/Sprites/UI/slider_uiNB.png"
+dest_files=["res://.godot/imported/slider_uiNB.png-0eff42f6d376f39ad19cbf6980be52d7.ctex"]
 
 [params]
 

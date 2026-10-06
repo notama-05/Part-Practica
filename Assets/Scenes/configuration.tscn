@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://baso8nsojoqa"]
+
+[ext_resource type="Texture2D" uid="uid://dtopp0py4aohi" path="res://Assets/Sprites/Screen_images/start_imageFV.png" id="1_d1pxt"]
+[ext_resource type="Script" path="res://Assets/Scripts/configuration.gd" id="1_qw8qv"]
+[ext_resource type="LabelSettings" uid="uid://d3usq73j3a0lh" path="res://Assets/font.tres" id="2_nwwmh"]
+[ext_resource type="FontFile" uid="uid://bejuy36s02d6d" path="res://Assets/Sprites/Minecraft/minecraft_font.ttf" id="3_liosq"]
+[ext_resource type="Texture2D" uid="uid://ct54ax70n1io6" path="res://Assets/Sprites/UI/slider_uiNB.png" id="4_j35xm"]
+[ext_resource type="Texture2D" uid="uid://u7nqgd1mfs3p" path="res://Assets/Sprites/UI/slider_ball_ui.png" id="5_vlybw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_15jme"]
+font = ExtResource("3_liosq")
+font_size = 35
+outline_size = 10
+outline_color = Color(1, 0.596078, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2f7e1"]
+texture = ExtResource("4_j35xm")
+texture_margin_top = 9.0
+texture_margin_bottom = 9.0
+region_rect = Rect2(0, 40.579, 349.732, 17.2608)
+
+[node name="Configuration" type="Node2D"]
+script = ExtResource("1_qw8qv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 592.0
+offset_bottom = 864.0
+texture = ExtResource("1_d1pxt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(560, 848)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Configuration"
+label_settings = ExtResource("2_nwwmh")
+horizontal_alignment = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="MusicT" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music"
+label_settings = SubResource("LabelSettings_15jme")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicS" type="HSlider" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_icons/grabber = ExtResource("5_vlybw")
+theme_override_styles/slider = SubResource("StyleBoxTexture_2f7e1")
+
+[node name="EffectsT" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Effects"
+label_settings = SubResource("LabelSettings_15jme")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EffectsS" type="HSlider" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_icons/grabber = ExtResource("5_vlybw")
+theme_override_styles/slider = SubResource("StyleBoxTexture_2f7e1")
+
+[node name="VSplitContainer2" type="VSplitContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="AcceptB" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_liosq")
+text = "Accept"
+
+[connection signal="pressed" from="VBoxContainer/AcceptB" to="." method="_on_accept_b_pressed"]

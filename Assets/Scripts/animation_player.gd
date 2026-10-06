@@ -23,6 +23,7 @@ func play_startrun(dir):
 		print("i")
 		flip_h = true
 		global_position.x += 50
+
 	play("startrun_animation")
 
 func play_sierra(paret):
@@ -40,6 +41,7 @@ func play_sierra(paret):
 			global_position.x += 20
 	else:
 		global_position.y -= 20
+
 	play("sierra_animation")
 
 func _on_animation_finished():

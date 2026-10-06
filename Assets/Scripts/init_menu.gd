@@ -3,6 +3,7 @@ extends Node2D
 @onready var sierra = preload("res://Assets/Scenes/sierra.tscn")
 @onready var paso1 = $CenterContainer
 @onready var paso2 = $Container
+@onready var song = $AudioStreamPlayer2D
 
 
 func create_sierras():
@@ -16,6 +17,10 @@ func create_sierras():
 		await get_tree().create_timer(0.4).timeout
 
 func _ready():
+	if Global.MusicVolume != 0:
+		song.volume_db = lerp(-15.0, 10.0, (Global.MusicVolume/100.0))
+	else:
+		song.stop()
 	create_sierras()
 
 func _process(delta):
@@ -37,8 +42,7 @@ func _on_tutorial_pressed():
 	get_tree().change_scene_to_file("res://Assets/Scenes/tutorial.tscn")
 
 func _on_configuration_pressed():
-	#get_tree().change_scene_to_file("res://Assets/Scenes/configuration.tscn")
-	pass 
+	get_tree().change_scene_to_file("res://Assets/Scenes/configuration.tscn")
 
 func _on_personalization_pressed():
 	get_tree().change_scene_to_file("res://Assets/Scenes/personalization.tscn")

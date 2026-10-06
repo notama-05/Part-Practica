@@ -5,17 +5,25 @@ extends Node2D
 @onready var SpriteSierra = $SpriteSierra
 @onready var SpriteMoneda = $SpriteMoneda
 @onready var boton_continuar = $NextButton
+@onready var song = $AudioStreamPlayer2D
+
 @onready var sierra = preload("res://Assets/Scenes/sierra.tscn")
+
 var paso = 0
 var cuenta = 0
 
-var textos = ["pulsa espacio para saltar", 
-"salta en el aire para ejecutar un doble salto", 
-"si te cae un objeto como este es un peligro ahora cuando baje salta por encima de el", 
-"como has visto la sierra suelta monedas como esta, eso te ganará tiempo para sobrevivir, ahora es momento de saltar a la acción" 
+var textos = ["press space to jump", 
+"jump while being on the air to make a double jump", 
+"These kind of objects are dangerous, jump over them when they fall", 
+"As you've seen, eliminating the objects gives you coins, they will grant you some extratime to survive.
+Now it's the moment to jump into action!" 
 ]
 
 func _ready():
+	if Global.MusicVolume != 0:
+		song.volume_db = lerp(-15.0, 10.0, (Global.MusicVolume/100.0))
+	else:
+		song.stop()
 	SpriteSierra.visible = false
 	SpriteSierra.frame = Global.sierra_skin
 	SpriteMoneda.visible = false
@@ -25,7 +33,7 @@ func _ready():
 
 func _muerte_tutorial():
 	player.queue_free()
-	letrero.text = "has muerto por tocar la sierra, no pasa nada, presiona la R"
+	letrero.text = "You've bump into one of the falling objects and died, it's okay, just press R"
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,12 +70,12 @@ func _on_next_button_pressed():
 	get_tree().change_scene_to_file("res://Assets/Scenes/main.tscn")
 
 func _on_destruye_sierras_area_entered(area):
-	if area.name == "Sierra":
-		letrero.text = "no te preocupes, ahora baja otra para que la saltes"
+	if area.name == "Sierra" and player != null:
+		letrero.text = "Don't worry, it will fall another one soon"
 		cuenta += 1
 		if cuenta == 3:
-			letrero.text = "oye no es por nada pero la idea es que saltes el objeto"
+			letrero.text = "Not to be mean or anything, but the idea is that you jump over the falling objects"
 		if cuenta >= 4:
-			letrero.text = "PUEDES SALTAR POR ENCIMA DEL OBJETO DE UNA VEZ!?!?!"
+			letrero.text = "CAN YOU PLEASE JUMP OVER THE FALLING OBJECT!?!?!"
 		create_sierra()
 		area.queue_free()
